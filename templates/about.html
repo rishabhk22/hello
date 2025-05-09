@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}About - Rishabh's Portfolio{% endblock %}
+
+{% block content %}
+<section class="about-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" data-aos="fade-up">About Me</h2>
+        <div class="row">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h3>Who I Am</h3>
+                <p>I am a passionate developer with expertise in web development and design. I love creating beautiful and functional applications that solve real-world problems.</p>
+                
+                <h3 class="mt-4">Skills</h3>
+                <div class="skills">
+                    <div class="skill-item">
+                        <span>Python</span>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span>JavaScript</span>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <!-- Add more skills as needed -->
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <h3>Education</h3>
+                <div class="education-item">
+                    <h4>Your University</h4>
+                    <p>Degree in Computer Science</p>
+                    <p>2018 - 2022</p>
+                </div>
+                <!-- Add more education items as needed -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

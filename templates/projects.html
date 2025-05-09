@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - Rishabh Kumar{% endblock %}
+
+{% block content %}
+<section class="projects-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5" data-aos="fade-up">My Projects</h2>
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="{{ url_for('static', filename='images/' + project.image) }}" 
+                             alt="{{ project.title }}"
+                             class="img-fluid"
+                             loading="lazy">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">{{ project.title }}</h3>
+                        <p class="project-description">{{ project.description }}</p>
+                        <button class="btn btn-outline-primary" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#project{{ project.id }}Modal">
+                            Read More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Modal -->
+            <div class="modal fade" id="project{{ project.id }}Modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ project.title }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ url_for('static', filename='images/' + project.image) }}" 
+                                 alt="{{ project.title }}"
+                                 class="img-fluid mb-4">
+                            <p>{{ project.details }}</p>
+                            <div class="technologies">
+                                <h6>Technologies Used:</h6>
+                                <div class="tech-tags">
+                                    {% for tech in project.technologies %}
+                                    <span class="tech-tag">{{ tech }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

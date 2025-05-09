@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Rishabh Kumar Portfolio{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <span class="brand-text">Rishabh</span>
+            </a>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" 
+                    aria-expanded="false" 
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}" 
+                           href="{{ url_for('home') }}">
+                            Home
+                        </a>
+                    </li>
+                  
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'portfolio' %}active{% endif %}" 
+                           href="{{ url_for('portfolio') }}">
+                            Portfolio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'resume' %}active{% endif %}" 
+                           href="{{ url_for('resume') }}">
+                            Resume
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}" 
+                           href="{{ url_for('contact') }}">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <img src="{{ url_for('static', filename='images/profile/profile-placeholder.jpg') }}" 
+                 alt="Rishabh Kumar - Profile Photo"
+                 class="profile-img"
+                 loading="eager"
+                 width="40" 
+                 height="40">
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-5 pt-5">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light mt-5 py-3">
+        <div class="container text-center">
+            <p>&copy; 2024 Rishabh Kumar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" class="text-light mx-2"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-light mx-2"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-light mx-2"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS with custom settings
+        AOS.init({
+            duration: 800,          // Animation duration
+            easing: 'ease-out',     // Animation timing function
+            once: true,             // Whether animation should happen only once
+            offset: 100,           // Offset (in px) from the original trigger point
+            delay: 100,            // Delay animation
+            anchorPlacement: 'top-bottom' // Defines which position of the element regarding to window should trigger the animation
+        });
+
+        // Smooth scroll behavior for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle image loading
+        document.querySelectorAll('img[loading]').forEach(img => {
+            img.addEventListener('load', function() {
+                this.classList.add('loaded');
+            });
+            
+            img.addEventListener('error', function() {
+                this.classList.add('error');
+                this.alt = 'Image failed to load';
+            });
+        });
+    });
+    </script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarCollapse.classList.remove('show');
+                }
+            });
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

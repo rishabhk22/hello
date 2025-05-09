@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Rishabh Kumar - Robotics Engineer and Product Manager{% endblock %}
+
+{% block content %}
+<section class="hero min-vh-100 d-flex align-items-center position-relative">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+                <div class="profile-image-container mx-auto">
+                    <img src="{{ url_for('static', filename='images/Main_photo.jpg') }}"
+                         alt="Rishabh Kumar - Profile Photo"
+                         class="profile-image"
+                         loading="eager"
+                         width="400"
+                         height="400">
+                </div>
+            </div>
+            <div class="col-lg-7" data-aos="fade-left">
+                <h1 class="display-4 fw-bold mb-3">Rishabh Kumar</h1>
+                <div class="typing-container mb-4">
+                    <span class="static-text">I'm a </span>
+                    <span class="typing-text"></span>
+                </div>
+                <p class="lead mb-4">
+                    Passionate about robotics, product development, and creating innovative solutions.
+                    Experienced in leading cross-functional teams and delivering impactful products.
+                </p>
+                <div class="cta-buttons">
+                    <a href="{{ url_for('portfolio') }}" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-code me-2"></i>View Portfolio
+                    </a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-envelope me-2"></i>Contact Me
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Me Section -->
+<section id="about" class="about-section py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center" data-aos="fade-up">
+                <h2 class="section-title mb-3">About Me</h2>
+                <hr class="section-divider mx-auto">
+                <p class="fs-5">
+                    I am a Robotics Engineer and Product Manager from India, currently based in Seattle.
+                    With 5 years of experience, I've worked across research labs, startups, and enterprise robotics — 
+                    from swarm AI to human-robot interaction.
+                </p>
+                <div class="mt-4">
+                    <a href="{{ url_for('resume') }}" class="btn btn-outline-dark btn-lg">
+                        <i class="fas fa-file-alt me-2"></i>View Full Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="contact-info-header">
+    <h3>{{ contact_info.name }}</h3>
+    <p class="text-muted">{{ contact_info.title }}</p>
+    <p>
+        <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a> |
+        {{ contact_info.phone.us }}{% if contact_info.phone.india and contact_info.phone.india != 'N/A' %} | {{ contact_info.phone.india }}{% endif %} |
+        {{ contact_info.location }}
+    </p>
+    <p>
+        {% for social in contact_info.social_links %}
+        <a href="{{ social.url }}" target="_blank">{{ social.platform|title }}</a>{% if not loop.last %} | {% endif %}
+        {% endfor %}
+    </p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const typingText = document.querySelector('.typing-text');
+    if (!typingText) return;
+    const words = ['Robotics Engineer', 'Product Manager', 'Innovator'];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+        const currentWord = words[wordIndex];
+        if (isDeleting) {
+            typingText.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+            if (charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, 60);
+            }
+        } else {
+            typingText.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+            if (charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, 1200);
+            } else {
+                setTimeout(type, 120);
+            }
+        }
+    }
+    type();
+});
+</script>
+{% endblock %}

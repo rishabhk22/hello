@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Resume - Rishabh Kumar{% endblock %}
+
+{% block content %}
+<section class="resume-section py-5">
+    <div class="container">
+        <!-- Header with Download Button -->
+        <div class="resume-header text-center mb-5">
+            <h2 class="section-title" data-aos="fade-up">Resume</h2>
+            <div class="section-divider mx-auto"></div>
+            <a href="{{ url_for('static', filename='resume/RishabhKumar.pdf') }}" 
+               class="btn btn-primary mt-3" 
+               download
+               data-aos="fade-up"
+               data-aos-delay="100">
+                <i class="fas fa-download me-2"></i>Download PDF
+            </a>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left Column: Experience & Skills -->
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                <!-- Work Experience -->
+                <div class="resume-card mb-4">
+                    <div class="resume-card-header">
+                        <h3><i class="fas fa-briefcase me-2"></i>Work Experience</h3>
+                    </div>
+                    <div class="resume-card-body">
+                        {% for experience in experiences %}
+                        <div class="experience-item mb-4">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h4>{{ experience.title }}</h4>
+                                <span class="date-badge">{{ experience.period }}</span>
+                            </div>
+                            <h5 class="company">{{ experience.company }}</h5>
+                            <ul class="experience-list">
+                                {% for achievement in experience.achievements %}
+                                <li>{{ achievement }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% if not loop.last %}
+                        <div class="divider"></div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Skills -->
+                <div class="resume-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="resume-card-header">
+                        <h3><i class="fas fa-code me-2"></i>Skills</h3>
+                    </div>
+                    <div class="resume-card-body">
+                        {% for skill in skills %}
+                        <div class="skill-category mb-3">
+                            <h5>{{ skill.category }}</h5>
+                            <div class="skill-tags">
+                                {% for item in skill["items"] %}
+                                <span class="skill-tag">{{ item }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Education & Additional Info -->
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                <!-- Education -->
+                <div class="resume-card mb-4">
+                    <div class="resume-card-header">
+                        <h3><i class="fas fa-graduation-cap me-2"></i>Education</h3>
+                    </div>
+                    <div class="resume-card-body">
+                        {% for education in educations %}
+                        <div class="education-item mb-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h4>{{ education.degree }}</h4>
+                                <span class="date-badge">{{ education.year }}</span>
+                            </div>
+                            <h5>{{ education.institution }}</h5>
+                            {% if education.details %}
+                            <p>{{ education.details }}</p>
+                            {% endif %}
+                        </div>
+                        {% if not loop.last %}
+                        <div class="divider"></div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Additional Info -->
+                <div class="resume-card">
+                    <div class="resume-card-header">
+                        <h3><i class="fas fa-info-circle me-2"></i>Additional Information</h3>
+                    </div>
+                    <div class="resume-card-body">
+                        <ul class="certification-list">
+                            {% for info in additional_info %}
+                            <li>
+                                <strong>{{ info.title }}</strong>
+                                {% if info.year %}<span class="date-badge ms-2">{{ info.year }}</span>{% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

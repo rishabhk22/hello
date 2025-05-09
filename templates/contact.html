@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - Rishabh Kumar{% endblock %}
+
+{% block content %}
+<section class="contact-section py-5">
+    <div class="container">
+        <h2 class="section-title text-center" data-aos="fade-up">Get in Touch</h2>
+        <div class="section-divider mx-auto mb-5"></div>
+        <div class="row g-4">
+            <!-- Contact Information -->
+            <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="contact-info-card">
+                    <div class="contact-info-header">
+                        <h3>{{ contact_info.name }}</h3>
+                        <p class="text-muted">{{ contact_info.title }}</p>
+                        <p>
+                            <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a><br>
+                            US: {{ contact_info.phone.us }}<br>
+                            India: {{ contact_info.phone.india }}<br>
+                            {{ contact_info.location }}
+                        </p>
+                        <div class="social-links mt-2">
+                            {% for social in contact_info.social_links %}
+                            <a href="{{ social.url }}" target="_blank" class="me-2">
+                                <i class="fab fa-{{ social.platform if social.platform != 'portfolio' else 'internet-explorer' }}"></i>
+                                {{ social.platform|title }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Contact Form -->
+            <div class="col-lg-7" data-aos="fade-up" data-aos-delay="200">
+                <div class="contact-form-card">
+                    <h3>Send a Message</h3>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                            <label for="name">Your Name</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                            <label for="email">Your Email</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <textarea class="form-control" id="message" placeholder="Your Message" style="height: 150px" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Message sent! (Demo only)');
+    this.reset();
+});
+</script>
+{% endblock %} 

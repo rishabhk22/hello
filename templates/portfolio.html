@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Rishabh Kumar{% endblock %}
+
+{% block content %}
+<section class="portfolio-section py-5" style="background:#f7f7f7;">
+    <div class="container">
+        <h2 class="section-title mb-2" style="font-size:3rem;font-weight:700;">Portfolio</h2>
+        <p class="mb-5" style="font-size:1.2rem;letter-spacing:0.1em;">Projects and Competitions</p>
+        {% for item in portfolio_items %}
+        <div class="row align-items-center mb-5 flex-md-row flex-column-reverse {% if loop.index % 2 == 0 %}flex-md-row-reverse{% endif %}">
+            <div class="col-md-6" data-aos="fade-right">
+                <h3 class="fw-bold mb-3" style="font-size:2rem;">
+                    {% if "Meher Baba" in item.title or "DTU Altair" in item.title %}
+                        <u>{{ item.title }}</u>
+                    {% else %}
+                        {{ item.title }}
+                    {% endif %}
+                </h3>
+                <p style="font-size:1.15rem;">{{ item.description }}</p>
+            </div>
+            <div class="col-md-6 text-center" data-aos="fade-left">
+                <img src="{{ url_for('static', filename='images/' + item.image) }}"
+                     alt="{{ item.title }}"
+                     class="img-fluid rounded shadow"
+                     style="max-height:350px;object-fit:contain;">
+            </div>
+        </div>
+        <hr class="my-4" style="opacity:0.1;">
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
