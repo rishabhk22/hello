@@ -1,0 +1,680 @@
+{% extends "base.html" %}
+
+{% block title %}Mehar Baba Competition - UAV Swarm for Runway Inspection{% endblock %}
+
+{% block content %}
+<style>
+    /* Reduce navbar height - make it thinner */
+    .navbar {
+        padding: 0.25rem 0 !important;
+        min-height: 50px !important;
+        height: 50px !important;
+    }
+    
+    .navbar .container {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem !important;
+        padding: 0.25rem 0 !important;
+    }
+    
+    .nav-link {
+        padding: 0.25rem 0.75rem !important;
+        font-size: 0.85rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .profile-img {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    
+    /* Adjust main content padding to account for thinner navbar */
+    main {
+        padding-top: 50px !important;
+    }
+    
+    /* Ensure hero section accounts for navbar */
+    .seract-section:first-of-type {
+        margin-top: 0 !important;
+        padding-top: 2rem !important;
+    }
+    
+    /* Prevent horizontal scrolling */
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    html {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+    
+    main.container {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        overflow-x: hidden;
+    }
+    
+    /* Uniform side padding and centering */
+    .container {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    /* Ensure rows and columns don't overflow */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+    }
+    
+    [class*="col-"] {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        max-width: 100%;
+    }
+    
+    /* Center content within sections */
+    .seract-section .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .seract-section .row {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Ensure images don't cause overflow */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    /* Prevent any element from causing horizontal scroll */
+    * {
+        box-sizing: border-box;
+    }
+    
+    /* Gestalt Design Principles - Visual Hierarchy & Spacing */
+    .seract-section {
+        padding: 5rem 0;
+    }
+    
+    .section-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+    
+    .section-subtitle {
+        font-size: 1.1rem;
+        color: #64748b;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+    
+    /* Proximity - Group related content */
+    .content-group {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    
+    /* Reduce spacing after section divider */
+    .section-divider + .content-group {
+        margin-top: 0;
+    }
+    
+    /* Similarity - Consistent card styling */
+    .info-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        border: 1px solid #e2e8f0;
+        height: 100%;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .info-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .info-card-title {
+        font-size: 0.875rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #475569;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    /* Architecture cards - Similarity principle */
+    .arch-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .arch-card:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: translateY(-4px);
+    }
+    
+    .arch-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #3b82f6;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+    
+    .arch-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #1e293b;
+    }
+    
+    /* Image containers - Continuity & Proximity */
+    .image-container {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.25rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+        max-width: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    
+    .image-container img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+    
+    /* Hero image container - special styling */
+    .hero-section .image-container {
+        padding: 1.5rem;
+        max-height: 500px;
+    }
+    
+    .hero-section .image-container img {
+        max-height: 450px;
+    }
+    
+    /* CRITICAL: Ensure Bootstrap columns stay side-by-side on medium+ screens */
+    @media (min-width: 768px) {
+        /* Force columns to be 50% width and side-by-side */
+        .row.g-4 > .col-md-6,
+        .row.g-4 > .col-lg-6 {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+        }
+        
+        /* Prevent row from wrapping on medium+ screens */
+        .row.g-4 {
+            flex-wrap: nowrap !important;
+        }
+        
+        /* Column internal layout */
+        .row .col-md-6,
+        .row .col-lg-6 {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .row .col-md-6 .image-container,
+        .row .col-lg-6 .image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        /* Center text content */
+        .row .col-md-6 .content-group,
+        .row .col-lg-6 .content-group {
+            width: 100%;
+        }
+    }
+    
+    /* Large screens - same rules */
+    @media (min-width: 992px) {
+        .row.g-4 > .col-lg-6 {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+        }
+        
+        .row.g-4 {
+            flex-wrap: nowrap !important;
+        }
+    }
+    
+    .image-container:hover {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    /* Better alignment for two-column layouts - Gestalt Proximity & Similarity */
+    .row.align-items-start {
+        align-items: stretch !important;
+    }
+    
+    /* Ensure columns have equal height for proper alignment */
+    @media (min-width: 992px) {
+        .row.align-items-start > [class*="col-lg-6"] {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Text column - content fills space naturally */
+        .row.align-items-start > [class*="col-lg-6"]:first-child > div,
+        .row.align-items-start > [class*="col-lg-6"]:last-child > div {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        /* Image container matches text column height */
+        .row.align-items-start .image-container {
+            flex: 1;
+            min-height: 0;
+        }
+        
+        /* Content group fills available space */
+        .content-group {
+            flex: 1;
+        }
+    }
+    
+    /* Remove unnecessary spacing - Gestalt Continuity */
+    .seract-section {
+        padding: 3.5rem 0;
+        width: 100%;
+    }
+    
+    /* Center all content */
+    .seract-section .container {
+        margin: 0 auto;
+    }
+    
+    /* Consistent spacing between elements */
+    .row.g-4 {
+        gap: 1.5rem;
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: center;
+    }
+    
+    /* CRITICAL FIX: Force side-by-side layout - override everything */
+    .seract-section .row.g-4 {
+        display: flex !important;
+        justify-content: center;
+    }
+    
+    @media (min-width: 768px) {
+        .seract-section .row.g-4 {
+            flex-wrap: nowrap !important;
+            justify-content: center;
+        }
+        
+        .seract-section .row.g-4 > .col-md-6,
+        .seract-section .row.g-4 > .col-lg-6 {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+            width: 50% !important;
+        }
+    }
+    
+    /* Responsive padding adjustments */
+    @media (max-width: 768px) {
+        .container {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        
+        [class*="col-"] {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+    }
+    
+    @media (min-width: 1200px) {
+        .container {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+    }
+    
+    /* Uniform text sizing */
+    .content-group p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+    
+    .content-group p:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Stats highlight - Closure principle */
+    .stat-highlight {
+        display: inline-block;
+        background: linear-gradient(120deg, #3b82f6 0%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+    }
+    
+    /* Better list styling - Proximity */
+    .feature-list {
+        padding-left: 1.25rem;
+    }
+    
+    .feature-list li {
+        margin-bottom: 0.75rem;
+        line-height: 1.5;
+    }
+    
+    .feature-list li:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Visual flow - Continuity */
+    .section-divider {
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        border: none;
+        margin: 0.75rem 0 1rem 0;
+        border-radius: 2px;
+    }
+</style>
+
+<!-- 1. Hero Section - IMAGE #1 (Hero Image) -->
+<section class="seract-section" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; margin-top: 0; padding-top: 3rem !important;">
+    <div class="container">
+        <div class="row align-items-center" style="min-height: 60vh;">
+            <div class="col-lg-7 mb-5 mb-lg-0" data-aos="fade-right">
+                <p class="section-label" style="color: #94a3b8;">Competition</p>
+                <h1 class="section-title" style="color: #f1f5f9;">Mehar Baba Competition – UAV Swarm for Runway Inspection</h1>
+                <p class="section-subtitle" style="color: #cbd5e1; font-size: 1.1rem;">Leveraging Autonomous Robotics and Computer Vision to Detect Foreign Object Debris (FOD)</p>
+                <div class="d-flex gap-3 flex-wrap mt-4">
+                    <a href="#problem" class="btn btn-primary btn-lg px-4">Explore Project</a>
+                    <a href="{{ url_for('portfolio') }}" class="btn btn-outline-light btn-lg px-4">Back to Portfolio</a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center" data-aos="fade-left">
+                <div class="image-container hero-section">
+                    <img src="{{ url_for('static', filename='images/Main_MBC.png') }}"
+                         alt="UAV Swarm Runway Inspection Hero"
+                         class="img-fluid rounded-3"
+                         style="width:100%; max-width:100%; height:auto; object-fit:contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 2. Problem & Context - Proximity & Similarity -->
+<section id="problem" class="seract-section bg-light">
+    <div class="container">
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-8" data-aos="fade-right">
+                <p class="section-label">Problem & Context</p>
+                <h2 class="section-title">Runway Debris Detection & Autonomy Challenges</h2>
+                <hr class="section-divider">
+                <div class="content-group">
+                    <p class="mb-3" style="font-size: 0.95rem; line-height: 1.6; color: #475569;">Runway Foreign Object Debris (FOD) poses <strong>critical safety risks</strong> to aircraft operations. Traditional inspection methods are time-intensive, labor-dependent, and can miss dangerous objects. In high-traffic airports, limited inspection windows create operational bottlenecks impacting <span class="stat-highlight">throughput</span> and <span class="stat-highlight">reliability</span>.</p>
+                    <p class="mb-0" style="font-size: 0.95rem; line-height: 1.6; color: #475569;">This challenge aligns with broader autonomy problems: deploying <strong>scalable, reliable autonomous systems</strong> that operate safely in dynamic environments. The solution requires multi-agent coordination, robust perception, and fail-safe mechanisms—critical for real-world autonomy applications.</p>
+                </div>
+            </div>
+            <div class="col-lg-4" data-aos="fade-left">
+                <div class="info-card">
+                    <p class="info-card-title">MBC in One Line</p>
+                    <p class="mb-0" style="line-height: 1.7; color: #64748b;">An autonomous UAV swarm system that uses computer vision and coordinated flight patterns to detect and report Foreign Object Debris on runways, enabling rapid, reliable inspection without disrupting airport operations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. Project Description / High-Level Solution -->
+<section class="seract-section" style="background: #f8fafc;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10" data-aos="fade-up">
+                <p class="section-label text-center">Project Description</p>
+                <h2 class="section-title text-center">High-Level Solution</h2>
+                <hr class="section-divider mx-auto">
+                <p class="text-center mb-0" style="font-size: 0.95rem; line-height: 1.6; color: #475569;">A coordinated multi-UAV swarm architecture with advanced computer vision to autonomously inspect runways for Foreign Object Debris. Combines autonomous flight coordination, real-time FOD detection, and comprehensive coverage patterns for runway safety.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. System Architecture - IMAGE #2 (UAV Swarm Diagram) -->
+<section class="seract-section">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <!-- Left: Text Content -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-right">
+                <p class="section-label">System Architecture</p>
+                <h2 class="section-title">UAV Swarm Architecture</h2>
+                <hr class="section-divider">
+                <div class="content-group">
+                    <p class="mb-3" style="font-size: 0.95rem; line-height: 1.6; color: #475569;">A coordinated multi-UAV architecture where drones operate autonomously while maintaining swarm-level coordination. Each UAV uses computer vision sensors and communicates with a central system for comprehensive runway coverage.</p>
+                    <ul class="feature-list mb-0" style="font-size: 0.9rem; color: #475569;">
+                        <li><strong>Swarm coordination:</strong> Manages flight paths, safe separation, and dynamic re-planning</li>
+                        <li><strong>Computer vision:</strong> Real-time FOD detection and classification</li>
+                        <li><strong>Sensor suite:</strong> RGB cameras, depth sensors, and IMU data</li>
+                        <li><strong>Ground control:</strong> Aggregates results and provides operator interface</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Right: Image -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-left">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/Engineering.png') }}"
+                         alt="UAV Swarm Architecture Diagram"
+                         class="img-fluid"
+                         style="width:100%; max-width:100%; height:auto; object-fit:contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. Mission Flow / Inspection Workflow - IMAGE #3 -->
+<section class="seract-section bg-light">
+    <div class="container">
+        <div class="row g-4 align-items-center flex-row-reverse">
+            <!-- Left: Image (reversed layout) -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-right">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/sim.png') }}"
+                         alt="Mission Flow and Inspection Workflow"
+                         class="img-fluid"
+                         style="width:100%; max-width:100%; height:auto; object-fit:contain;">
+                </div>
+            </div>
+            <!-- Right: Text Content -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-left">
+                <p class="section-label">Mission Flow</p>
+                <h2 class="section-title">Inspection Workflow</h2>
+                <hr class="section-divider">
+                <div class="content-group">
+                    <p class="mb-3" style="font-size: 0.95rem; line-height: 1.6; color: #475569;">The inspection workflow follows a systematic approach:</p>
+                    <ul class="feature-list mb-0" style="font-size: 0.9rem; color: #475569;">
+                        <li><strong>Pre-flight planning:</strong> Generate optimal coverage patterns based on runway dimensions</li>
+                        <li><strong>Autonomous deployment:</strong> Coordinated takeoff and swarm formation positioning</li>
+                        <li><strong>Systematic coverage:</strong> Grid-based inspection with real-time path adaptation</li>
+                        <li><strong>Real-time detection:</strong> On-board processing and transmission to ground control</li>
+                        <li><strong>Result aggregation:</strong> Compile detections, validate findings, generate reports</li>
+                        <li><strong>Safe recovery:</strong> Coordinated landing sequence without conflicts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. Computer Vision & Autonomy - IMAGE #4 (FOD Detection) -->
+<section class="seract-section">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <!-- Left: Text Content -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-right">
+                <p class="section-label">Computer Vision & Autonomy</p>
+                <h2 class="section-title">FOD Detection & Classification</h2>
+                <hr class="section-divider">
+                <div class="content-group">
+                    <p class="mb-3" style="font-size: 0.95rem; line-height: 1.6; color: #475569;">Advanced computer vision algorithms process real-time imagery to identify foreign objects of varying sizes and materials. Multi-scale detection techniques catch both large debris and small objects that could damage aircraft.</p>
+                    <ul class="feature-list mb-0" style="font-size: 0.9rem; color: #475569;">
+                        <li><strong>Multi-scale detection:</strong> Identifies objects from small screws to large debris</li>
+                        <li><strong>Material classification:</strong> Distinguishes metal, plastic, rubber, and organic materials</li>
+                        <li><strong>Risk assessment:</strong> Evaluates objects for potential aircraft damage risk</li>
+                        <li><strong>Real-time processing:</strong> On-board computation for immediate detection</li>
+                        <li><strong>Adaptive learning:</strong> Improves accuracy through feedback and continuous learning</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Right: Image -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-left">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/SW.png') }}"
+                         alt="Computer Vision FOD Detection"
+                         class="img-fluid"
+                         style="width:100%; max-width:100%; height:auto; object-fit:contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7. UI/UX Section -->
+<section class="seract-section bg-light">
+    <div class="container">
+        <div class="row g-4 align-items-center flex-row-reverse">
+            <!-- Column 1: Image -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-right">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/UI_1.png') }}" 
+                         class="img-fluid rounded shadow" 
+                         alt="MBC UI/UX"
+                         style="width:100%; max-width:100%; height:auto; object-fit:contain;">
+                </div>
+            </div>
+            <!-- Column 2: Text Content -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-left">
+                <p class="section-label">UI/UX</p>
+                <h2 class="section-title">Operator Interface</h2>
+                <hr class="section-divider">
+                <div class="content-group">
+                    <p class="mb-3" style="font-size: 0.95rem; line-height: 1.6; color: #475569;">A simple mission view that surfaces critical information without overwhelming operators:</p>
+                    <ul class="feature-list mb-2" style="font-size: 0.9rem; color: #475569;">
+                        <li><strong>Real-time swarm status:</strong> Live view of UAV positions and flight paths</li>
+                        <li><strong>Detection alerts:</strong> Immediate notifications with location and risk assessment</li>
+                        <li><strong>Mission progress:</strong> Visual indicators for coverage completion</li>
+                        <li><strong>Override controls:</strong> Options to confirm or override automated decisions</li>
+                        <li><strong>Audit trail:</strong> Complete log of detections and system actions</li>
+                    </ul>
+                    <p class="mb-0" style="font-size: 0.95rem; line-height: 1.6; color: #475569;">Focus on <strong>operational clarity</strong> and <strong>auditability</strong>—keeping human oversight lightweight but effective.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 8. My Role & Contributions - Visual Hierarchy -->
+<section class="seract-section">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8" data-aos="fade-right">
+                <p class="section-label">My Role</p>
+                <h2 class="section-title">Product & Technical Contributions</h2>
+                <hr class="section-divider">
+                <ul class="list-unstyled feature-list">
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Led system definition focusing on autonomy requirements and cross-domain coordination between UAV swarm, computer vision, and ground control systems.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Defined success metrics, failure modes, and risk register for UAV inspection operations, ensuring safety and reliability standards were met.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Integrated computer vision models for FOD detection and layered safety checks, including redundancy mechanisms and fail-safe protocols.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Designed roadmap phases: conceptual design → simulation validation → proof-of-concept demonstration, ensuring systematic progression from concept to prototype.</span>
+                    </li>
+                    <li class="mb-0 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Coordinated team alignment between hardware, software, and domain experts, facilitating cross-functional collaboration and ensuring technical requirements were met across all subsystems.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4" data-aos="fade-left">
+                <div class="info-card">
+                    <p class="info-card-title">Competition Outcome</p>
+                    <p class="mb-3" style="line-height: 1.7; color: #64748b;">Shortlisted for Phase D of the Indian Air Force Mehar Baba Competition, demonstrating the viability of autonomous UAV swarm technology for critical infrastructure inspection.</p>
+                    <p class="mb-0" style="line-height: 1.7; color: #64748b;">The project showcased how autonomous systems can enhance safety and operational efficiency in aviation operations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 9. Call-to-Action Section - Closure -->
+<section class="seract-section" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+    <div class="container text-center" data-aos="fade-up">
+        <h3 class="section-title mb-3">See More Work</h3>
+        <p class="section-subtitle mb-4">Explore additional robotics and product case studies.</p>
+        <a href="{{ url_for('portfolio') }}" class="btn btn-primary btn-lg px-5">View Full Portfolio</a>
+    </div>
+</section>
+{% endblock %}

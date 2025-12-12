@@ -3,30 +3,199 @@
 {% block title %}Portfolio - Rishabh Kumar{% endblock %}
 
 {% block content %}
-<section class="portfolio-section py-5" style="background:#f7f7f7;">
+<style>
+    .portfolio-hero {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        padding: 4rem 0 3rem;
+        margin-top: 0;
+    }
+    
+    .portfolio-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+    
+    .portfolio-subtitle {
+        font-size: 1.25rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #64748b;
+        font-weight: 600;
+    }
+    
+    .portfolio-section {
+        padding: 3rem 0;
+        background: #ffffff;
+    }
+    
+    .portfolio-item {
+        margin-bottom: 5rem;
+        padding: 2rem 0;
+    }
+    
+    .portfolio-item:last-child {
+        margin-bottom: 0;
+    }
+    
+    .portfolio-card {
+        background: white;
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .portfolio-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .portfolio-item-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+    
+    .portfolio-item-title a {
+        color: #1e293b;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .portfolio-item-title a:hover {
+        color: #3b82f6;
+    }
+    
+    .portfolio-item-description {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #475569;
+        margin-bottom: 0;
+    }
+    
+    .portfolio-image-wrapper {
+        border-radius: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        background: white;
+        padding: 1rem;
+    }
+    
+    .portfolio-image-wrapper:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .portfolio-image-wrapper img {
+        border-radius: 1rem;
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: contain;
+    }
+    
+    .portfolio-divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        border: none;
+        margin: 3rem 0;
+    }
+    
+    .portfolio-link {
+        display: inline-flex;
+        align-items: center;
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .portfolio-link:hover {
+        color: #2563eb;
+        transform: translateX(4px);
+    }
+    
+    .portfolio-link i {
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .portfolio-link:hover i {
+        transform: translateX(4px);
+    }
+</style>
+
+<!-- Portfolio Hero Section -->
+<section class="portfolio-hero">
     <div class="container">
-        <h2 class="section-title mb-2" style="font-size:3rem;font-weight:700;">Portfolio</h2>
-        <p class="mb-5" style="font-size:1.2rem;letter-spacing:0.1em;">Projects and Competitions</p>
-        {% for item in portfolio_items %}
-        <div class="row align-items-center mb-5 flex-md-row flex-column-reverse {% if loop.index % 2 == 0 %}flex-md-row-reverse{% endif %}">
-            <div class="col-md-6" data-aos="fade-right">
-                <h3 class="fw-bold mb-3" style="font-size:2rem;">
-                    {% if "Meher Baba" in item.title or "DTU Altair" in item.title %}
-                        <u>{{ item.title }}</u>
-                    {% else %}
-                        {{ item.title }}
-                    {% endif %}
-                </h3>
-                <p style="font-size:1.15rem;">{{ item.description }}</p>
-            </div>
-            <div class="col-md-6 text-center" data-aos="fade-left">
-                <img src="{{ url_for('static', filename='images/' + item.image) }}"
-                     alt="{{ item.title }}"
-                     class="img-fluid rounded shadow"
-                     style="max-height:350px;object-fit:contain;">
-            </div>
+        <div class="text-center" data-aos="fade-up">
+            <h1 class="portfolio-title">Portfolio</h1>
+            <p class="portfolio-subtitle">Projects and Competitions</p>
         </div>
-        <hr class="my-4" style="opacity:0.1;">
+    </div>
+</section>
+
+<!-- Portfolio Items Section -->
+<section class="portfolio-section">
+    <div class="container">
+        {% for item in portfolio_items %}
+        <div class="portfolio-item">
+            <div class="row align-items-center g-5 {% if loop.index % 2 == 0 %}flex-row-reverse{% endif %}">
+                <!-- Content Column -->
+                <div class="col-lg-6" data-aos="fade-{% if loop.index % 2 == 0 %}left{% else %}right{% endif %}">
+                    <div class="portfolio-card">
+                        <h3 class="portfolio-item-title">
+                            {% if item.url %}
+                                <a href="{{ item.url }}">
+                                    {{ item.title }}
+                                </a>
+                            {% else %}
+                                {{ item.title }}
+                            {% endif %}
+                        </h3>
+                        <p class="portfolio-item-description">{{ item.description }}</p>
+                        {% if item.url %}
+                        <a href="{{ item.url }}" class="portfolio-link">
+                            View Project <i class="fas fa-arrow-right"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Image Column -->
+                <div class="col-lg-6" data-aos="fade-{% if loop.index % 2 == 0 %}right{% else %}left{% endif %}">
+                    {% if item.url %}
+                        <a href="{{ item.url }}" class="d-block">
+                            <div class="portfolio-image-wrapper">
+                                <img src="{{ url_for('static', filename='images/' + item.image) }}"
+                                     alt="{{ item.title }}"
+                                     loading="lazy">
+                            </div>
+                        </a>
+                    {% else %}
+                        <div class="portfolio-image-wrapper">
+                            <img src="{{ url_for('static', filename='images/' + item.image) }}"
+                                 alt="{{ item.title }}"
+                                 loading="lazy">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if not loop.last %}
+            <hr class="portfolio-divider">
+            {% endif %}
+        </div>
         {% endfor %}
     </div>
 </section>

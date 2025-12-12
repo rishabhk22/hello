@@ -1,0 +1,356 @@
+{% extends "base.html" %}
+
+{% block title %}Seract - Autonomous Returns Inspection{% endblock %}
+
+{% block content %}
+<style>
+    main.container {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    /* Gestalt Design Principles - Visual Hierarchy & Spacing */
+    .seract-section {
+        padding: 5rem 0;
+    }
+    
+    .section-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+    
+    .section-subtitle {
+        font-size: 1.25rem;
+        color: #64748b;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+    
+    /* Proximity - Group related content */
+    .content-group {
+        margin-bottom: 3rem;
+    }
+    
+    .content-group:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Similarity - Consistent card styling */
+    .info-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        border: 1px solid #e2e8f0;
+        height: 100%;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .info-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .info-card-title {
+        font-size: 0.875rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #475569;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    /* Architecture cards - Similarity principle */
+    .arch-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .arch-card:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: translateY(-4px);
+    }
+    
+    .arch-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #3b82f6;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+    
+    .arch-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #1e293b;
+    }
+    
+    /* Image containers - Continuity */
+    .image-container {
+        background: white;
+        border-radius: 1rem;
+        padding: 1rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+    
+    .image-container:hover {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    /* Stats highlight - Closure principle */
+    .stat-highlight {
+        display: inline-block;
+        background: linear-gradient(120deg, #3b82f6 0%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+    }
+    
+    /* Better list styling - Proximity */
+    .feature-list li {
+        margin-bottom: 1rem;
+        padding-left: 0.5rem;
+        line-height: 1.6;
+    }
+    
+    .feature-list li:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Visual flow - Continuity */
+    .section-divider {
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        border: none;
+        margin: 2rem 0;
+        border-radius: 2px;
+    }
+</style>
+
+<!-- Hero Section - Visual Hierarchy -->
+<section class="seract-section" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #e2e8f0; margin-top: 0;">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-7 mb-5 mb-lg-0" data-aos="fade-right">
+                <p class="section-label" style="color: #94a3b8;">Case Study</p>
+                <h1 class="section-title" style="color: #f1f5f9;">Seract: Autonomous Returns Inspection for E-commerce</h1>
+                <p class="section-subtitle" style="color: #cbd5e1; font-size: 1.1rem;">Seract (Sense–Reason–Act) is an intelligent robotic workstation for returns inspection and sortation. It combines RGB-D sensing, foundation models, and a robotic arm to automate the cognitive bottleneck of returns: identifying items, assessing condition, and routing them to the right disposition at scale.</p>
+                <div class="d-flex gap-3 flex-wrap mt-4">
+                    <a href="#problem" class="btn btn-primary btn-lg px-4">Explore Case</a>
+                    <a href="{{ url_for('portfolio') }}" class="btn btn-outline-light btn-lg px-4">Back to Portfolio</a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center" data-aos="fade-left">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/main.png') }}"
+                         alt="Seract workstation hero visual"
+                         class="img-fluid rounded-3"
+                         style="max-width:100%; height:auto; max-height:500px; object-fit:contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Problem & Context - Proximity & Similarity -->
+<section id="problem" class="seract-section bg-light">
+    <div class="container">
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-8" data-aos="fade-right">
+                <p class="section-label">Problem & Context</p>
+                <h2 class="section-title">The Returns Logistics Challenge</h2>
+                <hr class="section-divider">
+                <div class="content-group">
+                    <p class="fs-5 mb-4" style="line-height: 1.8; color: #475569;">E-commerce returns are a massive operational drain: roughly <span class="stat-highlight">10–20%</span> of online purchases are returned, and returns cost retailers an estimated <span class="stat-highlight">$743B</span> in 2023. Today, inspection and grading are still largely manual—slow, inconsistent, and expensive. Human operators must identify SKUs, inspect for defects, decide resellability, and place items in the right bin under time pressure.</p>
+                    <p class="fs-5 mb-0" style="line-height: 1.8; color: #475569;">Seract is designed to tackle this inspection bottleneck in a way that is <strong>repeatable</strong>, <strong>data-driven</strong>, and <strong>automatable</strong>.</p>
+                </div>
+            </div>
+            <div class="col-lg-4" data-aos="fade-left">
+                <div class="info-card">
+                    <p class="info-card-title">Seract in One Line</p>
+                    <p class="mb-0" style="line-height: 1.7; color: #64748b;">A fixed robotic inspection cell that uses a <strong>Sense → Reason → Act</strong> pipeline—powered by vision-language models and LeRobot manipulation—to inspect, classify, and sort returned items.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- System Architecture - Similarity & Continuity -->
+<section class="seract-section" style="background: #f8fafc;">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <p class="section-label">System Architecture</p>
+            <h2 class="section-title mb-3">Sense · Reason · Act</h2>
+            <hr class="section-divider mx-auto">
+        </div>
+        
+        <!-- Architecture Cards - Similarity Principle -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4" data-aos="fade-up">
+                <div class="arch-card">
+                    <p class="arch-label">Sense</p>
+                    <h3 class="arch-title">RGB-D Imaging & Item Tracking</h3>
+                    <p class="text-muted" style="line-height: 1.7;">RGB-D camera captures multi-view images of each returned item on the workstation. The system tracks item pose and ensures coverage for visible surfaces.</p>
+                </div>
+            </div>
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="arch-card">
+                    <p class="arch-label">Reason</p>
+                    <h3 class="arch-title">Vision-Language & Foundation Models</h3>
+                    <p class="text-muted" style="line-height: 1.7;">Vision-language and foundation models analyze captured images to identify SKU/product type, detect visible defects or anomalies, and classify condition and likely resellability (resell/refurbish/recycle/discard). External data (e.g., policy rules, marketplace constraints) can be incorporated into decision logic.</p>
+                </div>
+            </div>
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="arch-card">
+                    <p class="arch-label">Act</p>
+                    <h3 class="arch-title">LeRobot Manipulation</h3>
+                    <p class="text-muted" style="line-height: 1.7;">A robotic arm executes pick, turn, and place actions to expose new views for inspection and place items into the correct output bins based on Reason outputs. The cell is designed to be modular so it can be replicated across multiple stations in a warehouse.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Architecture Images - Continuity -->
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/Sense.png') }}" 
+                         class="img-fluid w-100" 
+                         alt="Sense module visual"
+                         style="max-height:300px; object-fit:contain;">
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/Reason.png') }}" 
+                         class="img-fluid w-100" 
+                         alt="Reason module visual"
+                         style="max-height:300px; object-fit:contain;">
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/Act.png') }}" 
+                         class="img-fluid w-100" 
+                         alt="Act module visual"
+                         style="max-height:300px; object-fit:contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI & Robotics Strategy - Proximity & Balance -->
+<section class="seract-section">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <p class="section-label">AI & Data Strategy</p>
+                <h2 class="section-title">Foundation Models & Industrial Datasets</h2>
+                <hr class="section-divider">
+                <p class="fs-5 mb-4" style="line-height: 1.8; color: #475569;">Seract is designed around foundation models and industrial datasets, not bespoke one-off models:</p>
+                <ul class="feature-list fs-5" style="color: #475569;">
+                    <li>Uses vision-language models (e.g., GPT-class VLMs, robotics-oriented models like GR00T) for generalized perception and reasoning on top of RGB-D images.</li>
+                    <li>Leverages a mix of public datasets (e.g., fashion/defect datasets such as DeepFashion2, MVTec AD, Amazon bin image–style data) plus custom captured data from the workstation.</li>
+                    <li>The architecture allows continuous improvement from feedback and new returns data, fine-tuning for specific retailers or product categories, and clear evaluation through metrics like inspection accuracy, grading consistency, and throughput.</li>
+                </ul>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <p class="section-label">Robotics & Hardware Integration</p>
+                <h2 class="section-title">Standard Replicable Cell</h2>
+                <hr class="section-divider">
+                <p class="fs-5 mb-4" style="line-height: 1.8; color: #475569;">Seract is conceived as a standard cell that can be replicated across sites:</p>
+                <ul class="feature-list fs-5" style="color: #475569;">
+                    <li>A robotic arm, RGB-D sensor, workstation surface, and bin array.</li>
+                    <li>The arm is controlled via a policy layer (e.g., LeRobot/ACT-style policies) that maps inspection plans into robust motion sequences.</li>
+                    <li>The design is compatible with warehouse constraints such as item variability, lighting, occlusions, and safety boundaries.</li>
+                    <li>The goal is to deliver a repeatable, integrable module that can sit in a larger Amazon-style sortation or returns line, not a one-off lab demo.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- My Role & UI - Visual Hierarchy -->
+<section class="seract-section bg-light">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8" data-aos="fade-right">
+                <p class="section-label">My Role</p>
+                <h2 class="section-title">Product & Program Contributions</h2>
+                <hr class="section-divider">
+                <ul class="list-unstyled feature-list">
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Led the problem framing for returns inspection: synthesized industry reports, cost data, and warehouse research into a clear opportunity statement.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Defined the Sense–Reason–Act architecture, including sensing setup, model roles, and action flows for the robotic cell.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Drove primary research with operators and logistics stakeholders to understand current inspection workflows, edge cases, and constraints.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Created the technical requirements for the workstation: item types, inspection steps, data flows, and performance targets (accuracy, cycle time, reliability).</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Designed the evaluation plan using both public datasets and custom data to measure defect detection and grading consistency.</span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Structured the project roadmap for the student-led team: phases for simulation, data collection, model evaluation, and integration with the arm.</span>
+                    </li>
+                    <li class="mb-0 d-flex align-items-start">
+                        <i class="fas fa-check-circle text-primary me-3 mt-1" style="font-size: 1.1rem;"></i>
+                        <span style="line-height: 1.7; color: #475569;">Aligned faculty, technical teammates, and potential industry stakeholders around a realistic scope that could progress from concept to deployable prototype.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4" data-aos="fade-left">
+                <div class="info-card">
+                    <p class="info-card-title">Operator Interface</p>
+                    <p class="mb-0" style="line-height: 1.7; color: #64748b;">The operator UI is a simple mission view that surfaces item images, model decisions, and bin assignments, with clear options to confirm or override. The focus is on operational clarity and auditability rather than complex UI—keeping human oversight lightweight but effective.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section - Closure -->
+<section class="seract-section" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+    <div class="container text-center" data-aos="fade-up">
+        <h3 class="section-title mb-3">See More Work</h3>
+        <p class="section-subtitle mb-4">Explore additional robotics and product case studies.</p>
+        <a href="{{ url_for('portfolio') }}" class="btn btn-primary btn-lg px-5">View Full Portfolio</a>
+    </div>
+</section>
+{% endblock %}

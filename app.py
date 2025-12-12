@@ -114,9 +114,16 @@ ADDITIONAL_INFO = [
 
 portfolio_items = [
     {
-        "title": "Meher Baba Competition 2022",
-        "description": "One of the most prestigious technological innovation challenges in the country, organized by the Indian Air Force. The problem statement combines technologies such as swarm, UAV autonomy, robotics, AI, ML, and computer vision to solve a practical problem and push the limits of technology and innovation in India.",
-        "image": "Meher Baba Competition 2022.jpg"
+        "title": "Seract – Autonomous Inspection for Returns",
+        "description": "A robotic system that automates item inspection using foundation models, RGB-D sensing, and LeRobot manipulation.",
+        "image": "main.png",
+        "url": "/seract"
+    },
+    {
+        "title": "Mehar Baba Competition 2022",
+        "description": "UAV swarm inspection system for detecting runway debris using autonomy and computer vision.",
+        "image": "Meher Baba Competition 2022.jpg",
+        "url": "/mbc"
     },
     {
         "title": "Soft Robotics",
@@ -157,6 +164,14 @@ def about():
 @app.route("/portfolio")
 def portfolio():
     return render_template("portfolio.html", portfolio_items=portfolio_items)
+
+@app.route("/seract")
+def seract():
+    return render_template("seract.html")
+
+@app.route("/mbc")
+def mbc():
+    return render_template("mbc.html")
 
 @app.route("/resume")
 def resume():
